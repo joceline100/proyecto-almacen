@@ -1,16 +1,12 @@
 const express = require('express');
-const path = require('path');
 const mysql = require('mysql2');
-const cors=require('cors')
+const cors = require('cors');
 
 const app = express();
 app.use(express.json());
-app.use(express.static('public'));
-app.use(cors())
+app.use(cors());
 
-
-// conexión BD (usa PlanetScale o Clever Cloud)
-
+// conexión BD
 const db = mysql.createConnection({
   host: "b7wmgfnurdc1jsxtzhbc-mysql.services.clever-cloud.com",
   user: "u1md4gr8fhtl8lym",
@@ -30,11 +26,9 @@ app.get('/api/unidades', (req, res) => {
 // POST unidades
 app.post('/api/unidades', (req, res) => {
   const { nombre } = req.body;
-  app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-});
 
-  db.query('INSERT INTO unidades (nombre) VALUES (?)',
+  db.query(
+    'INSERT INTO unidades (nombre) VALUES (?)',
     [nombre],
     (err, result) => {
       if (err) return res.status(500).json(err);
@@ -44,5 +38,3 @@ app.post('/api/unidades', (req, res) => {
 });
 
 module.exports = app;
-
-//app.listen(3000, () => console.log("Servidor listo"));
