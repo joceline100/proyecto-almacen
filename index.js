@@ -8,6 +8,7 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(cors())
 
+
 // conexión BD (usa PlanetScale o Clever Cloud)
 
 const db = mysql.createConnection({
