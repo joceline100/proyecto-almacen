@@ -15,24 +15,27 @@ const db = mysql.createConnection({
   port: 3306
 });
 
-// GET unidades
-app.get('/api/unidades', (req, res) => {
+// 👇 IMPORTANTE: SIN /api AQUÍ
+app.get('/unidades', (req, res) => {
   db.query('SELECT * FROM unidades', (err, result) => {
     if (err) return res.status(500).json(err);
     res.json(result);
   });
 });
 
-// POST unidades
-app.post('/api/unidades', (req, res) => {
+app.post('/unidades', (req, res) => {
   const { nombre } = req.body;
+
+  if (!nombre) {
+    return res.status(400).json({ error: "Nombre requerido" });
+  }
 
   db.query(
     'INSERT INTO unidades (nombre) VALUES (?)',
     [nombre],
     (err, result) => {
       if (err) return res.status(500).json(err);
-      res.json({ mensaje: "Guardado" });
+      res.json({ mensaje: "Guardado correctamente" });
     }
   );
 });
