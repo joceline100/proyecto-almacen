@@ -29,6 +29,9 @@ app.get('/api/unidades', (req, res) => {
 // POST unidades
 app.post('/api/unidades', (req, res) => {
   const { nombre } = req.body;
+  app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
 
   db.query('INSERT INTO unidades (nombre) VALUES (?)',
     [nombre],
