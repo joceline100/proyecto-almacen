@@ -15,7 +15,7 @@
 function guardar(){
   const nombre = document.getElementById("nombre").value;
 
-  fetch("http://localhost:3000/api/unidades", {
+  fetch("/api/unidades", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -29,11 +29,11 @@ function guardar(){
 }
 
 function ver(){
-  fetch("http://localhost:3000/api/unidades")
+  fetch("/api/unidades")
   .then(res => res.json())
   .then(data => {
     document.getElementById("resultado").innerHTML =
-      JSON.stringify(data);
+      JSON.stringify(data, null, 2);
   });
 }
 </script>
