@@ -1,40 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Unidades</title>
+</head>
 <body>
 
-<h2>Agregar Unidad</h2>
+<h1>Agregar Unidad</h1>
 
-<input type="text" id="nombre" placeholder="Ej: Litros">
+<input type="text" id="nombre" placeholder="Nombre">
 <button onclick="guardar()">Guardar</button>
-
 <button onclick="ver()">Ver unidades</button>
 
-<div id="resultado"></div>
+<pre id="resultado"></pre>
 
 <script>
-function guardar(){
-  const nombre = document.getElementById("nombre").value;
+function guardar() {
+  const nombre = document.getElementById('nombre').value;
 
-  fetch("http://localhost:3000/api/unidades", {
-    method: "POST",
+  fetch('/api/unidades', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({ nombre })
   })
   .then(res => res.json())
   .then(data => {
-    alert("Guardado");
-  });
+    alert("Guardado correctamente");
+    ver();
+  })
+  .catch(err => console.error(err));
 }
 
-function ver(){
-  fetch("http://localhost:3000/api/unidades")
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("resultado").innerHTML =
-      JSON.stringify(data);
-  });
+function ver() {
+  fetch('/api/unidades')
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('resultado').textContent =
+        JSON.stringify(data, null, 2);
+    })
+    .catch(err => console.error(err));
 }
 </script>
 

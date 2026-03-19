@@ -1,11 +1,9 @@
 const express = require('express');
-const path = require('path');
 const mysql = require('mysql2');
 const cors = require('cors');
 
 const app = express();
 app.use(express.json());
-app.use(express.static('public'));
 app.use(cors());
 
 // conexión BD
@@ -17,7 +15,7 @@ const db = mysql.createConnection({
   port: 3306
 });
 
-// GET unidades
+// GET
 app.get('/api/unidades', (req, res) => {
   db.query('SELECT * FROM unidades', (err, result) => {
     if (err) return res.status(500).json(err);
@@ -25,7 +23,7 @@ app.get('/api/unidades', (req, res) => {
   });
 });
 
-// POST unidades
+// POST
 app.post('/api/unidades', (req, res) => {
   const { nombre } = req.body;
 
